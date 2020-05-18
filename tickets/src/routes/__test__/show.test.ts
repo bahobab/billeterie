@@ -10,7 +10,7 @@ it("returns a 404 if ticket is not found", async () => {
   //   const existingTicket = await Ticket.findById({ _id: ticketId });
 
   const response = await request(app)
-    .get(`/tickets/${ticketId}`)
+    .get(`/api/tickets/${ticketId}`)
     .send()
     .expect(404);
 });
@@ -26,7 +26,7 @@ it("returns a 200 if the ticket is found", async () => {
   createdTicket.save();
 
   const response = await request(app)
-    .get(`/tickets/${createdTicket.id}`)
+    .get(`/api/tickets/${createdTicket.id}`)
     .send()
     .expect(200);
 

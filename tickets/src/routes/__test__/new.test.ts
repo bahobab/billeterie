@@ -4,13 +4,13 @@ import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 
 it("has a route handler listening to /api/tickets for post requests", async () => {
-  const response = await request(app).post("/api/tickets").send({});
+  const response = await request(app).post("tickets").send({});
 
   expect(response.status).not.toEqual(404);
 });
 
 it("can only access if user is signed in", async () => {
-  await request(app).post("/api/tickets").send({}).expect(401);
+  await request(app).post("tickets").send({}).expect(401);
 });
 
 it("returns status other than 401 if user is signed in", async () => {

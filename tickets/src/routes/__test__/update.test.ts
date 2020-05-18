@@ -46,7 +46,7 @@ it("returns a 401 if the user does not own the ticket", async () => {
   console.log("ticket fetched", ticket);
 
   const res = await request(app)
-    .put(`api/tickets/${response.body.id}`)
+    .put(`/api/tickets/${response.body.id}`)
     .set("Cookie", global.signin())
     .send({ title: "oooooooooo", price: 90 });
   // .expect(401);

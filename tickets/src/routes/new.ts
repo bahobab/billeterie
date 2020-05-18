@@ -21,6 +21,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
+    // console.log(">>>>ticket", req.body);
     const { title, price } = req.body;
 
     const ticket = Ticket.build({ title, price, userId: req.currentUser!.id });
@@ -33,7 +34,7 @@ router.post(
       userId: ticket.userId,
     });
 
-    res.status(201).send(ticket);
+    res.status(201).send("tickets");
   }
 );
 
