@@ -7,7 +7,7 @@ import {
   validateRequest,
 } from "@billety/common";
 
-import { Ticket } from "../models/tickets";
+import { Ticket } from "../models/ticket";
 
 const router = express.Router();
 
@@ -17,13 +17,16 @@ router.put(
   [
     body("title").not().isEmpty().withMessage("Title must be provided"),
     body("price")
-      .not()
       .isFloat({ gt: 0 })
       .withMessage("Price must be provided and greater than 0"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
+
+    console.log("<<< ticketId", req.params.id);
+    console.log(">>>", ticket);
+
     if (!ticket) {
       throw new NotFoundError();
     }
@@ -47,4 +50,4 @@ router.put(
   }
 );
 
-export { router as ticketUpdateRouter };
+export { router as updateTicketRouter };

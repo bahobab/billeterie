@@ -1,7 +1,7 @@
 import request from "supertest";
 import mongoose from "mongoose";
 
-import { Ticket } from "../../models/tickets";
+import { Ticket } from "../../models/ticket";
 
 import { app } from "../../app";
 
