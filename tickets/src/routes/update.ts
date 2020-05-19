@@ -24,9 +24,6 @@ router.put(
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
 
-    console.log("<<< ticketId", req.params.id);
-    console.log(">>>", ticket);
-
     if (!ticket) {
       throw new NotFoundError();
     }

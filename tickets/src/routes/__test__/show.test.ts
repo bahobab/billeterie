@@ -19,14 +19,16 @@ it("returns a 200 if the ticket is found", async () => {
   const ticket = {
     title: "fkfkfk",
     price: 30,
-    userId: "kdskl",
   };
 
-  const createdTicket = await Ticket.build(ticket);
-  createdTicket.save();
+  const res = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send(ticket)
+    .expect(201);
 
   const response = await request(app)
-    .get(`/api/tickets/${createdTicket.id}`)
+    .get(`/api/tickets/${res.body.id}`)
     .send()
     .expect(200);
 

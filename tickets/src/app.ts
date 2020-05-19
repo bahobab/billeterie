@@ -22,8 +22,8 @@ app.use(
 
 app.use(currentUser);
 
-app.use(indexTicketRouter);
 app.use(createTicketRouter);
+app.use(indexTicketRouter);
 app.use(showTicketRouter);
 app.use(updateTicketRouter);
 

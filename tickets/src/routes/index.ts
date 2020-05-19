@@ -12,7 +12,7 @@ router.get("/api/tickets", async (req: Request, res: Response) => {
     throw new NotFoundError();
   }
 
-  res.status(200).send("tickets");
+  res.status(200).send(tickets);
 });
 
 export { router as indexTicketRouter };
