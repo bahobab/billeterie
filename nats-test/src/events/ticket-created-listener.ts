@@ -9,7 +9,12 @@ class TicketCreatedListener extends Listener<TicketCreatedEvent> {
   queueGroupName = "payment-service";
 
   onMessage(data: TicketCreatedEvent["data"], msg: Message) {
+    // data = JSON.parse(data)
     console.log(`Event data:`, data);
+
+    console.log(data.id);
+    console.log(data.title);
+    console.log(data.price);
 
     msg.ack();
   }
