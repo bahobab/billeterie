@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
 
 const createTicketId = () => {
   return new mongoose.Types.ObjectId().toHexString();
@@ -86,8 +87,25 @@ it("returns a 202 update the ticket if valid user and ticket id", async () => {
     .put(`/api/tickets/${response.body.id}`)
     .set("Cookie", cookie)
     .send({ title: "yoyoyo", price: 9999 })
-    .expect(200);
+    .expect(201);
 
   expect(updatedResponse.body.title).toEqual("yoyoyo");
   expect(updatedResponse.body.price).toEqual(9999);
+});
+
+it("publishes an event after a ticket is updated", async () => {
+  const cookie = global.signin();
+
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({ title: "dkjfdjfg", price: 33 });
+
+  const updatedResponse = await request(app)
+    .put(`/api/tickets/${response.body.id}`)
+    .set("Cookie", cookie)
+    .send({ title: "yoyoyo", price: 9999 })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
