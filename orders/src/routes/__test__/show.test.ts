@@ -21,7 +21,11 @@ it("returns a 200 if the order exists", async () => {
 
   const user = global.signin();
 
-  const ticket = Ticket.build({ title: "Fela", price: 99 });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title: "Fela",
+    price: 99,
+  });
   await ticket.save();
 
   const { body: createdOrder } = await request(app)
@@ -50,7 +54,11 @@ it("returns a 401 if a user tries to fetch another users orders", async () => {
 
   const user = global.signin();
 
-  const ticket = Ticket.build({ title: "Fela", price: 99 });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title: "Fela",
+    price: 99,
+  });
   await ticket.save();
 
   const { body: createdOrder } = await request(app)

@@ -1,4 +1,5 @@
 import request from "supertest";
+import mongoose from "mongoose";
 
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
@@ -7,7 +8,11 @@ import { Order, OrderStatus } from "../../models/order";
 import { natsWrapper } from "../../nats-wrapper";
 
 it("marks an order as cancelled", async () => {
-  const ticket = Ticket.build({ title: "Fela", price: 98 });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title: "Fela",
+    price: 98,
+  });
   await ticket.save();
 
   const user = global.signin();
@@ -29,7 +34,11 @@ it("marks an order as cancelled", async () => {
 });
 
 it("fails to marks an order as cancelled if not owner of the order", async () => {
-  const ticket = Ticket.build({ title: "Fela", price: 98 });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title: "Fela",
+    price: 98,
+  });
   await ticket.save();
 
   const user = global.signin();
@@ -47,7 +56,11 @@ it("fails to marks an order as cancelled if not owner of the order", async () =>
 });
 
 it("emits cancelled order event", async () => {
-  const ticket = Ticket.build({ title: "Fela", price: 98 });
+  const ticket = Ticket.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    title: "Fela",
+    price: 98,
+  });
   await ticket.save();
 
   const user = global.signin();
