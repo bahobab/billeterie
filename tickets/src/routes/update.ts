@@ -5,6 +5,7 @@ import {
   NotAuthorizedError,
   NotFoundError,
   validateRequest,
+  BadRequestError,
 } from "@billety/common";
 
 import { Ticket } from "../models/ticket";
@@ -28,6 +29,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("UPDATE ticket: Cannot edit reserved ticket!");
     }
 
     if (!req.currentUser) {
