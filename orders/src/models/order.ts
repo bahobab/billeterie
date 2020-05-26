@@ -16,7 +16,7 @@ interface OrderAttributes {
 interface OrderDOc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
-  expiresAt: string;
+  expiresAt: Date;
   ticket: TicketDoc;
   version: number;
 }
@@ -38,7 +38,7 @@ const orderSchema = new mongoose.Schema(
       default: OrderStatus.Created,
     },
     expiresAt: {
-      type: String,
+      type: mongoose.Schema.Types.Date,
       required: true,
     },
     ticket: {
